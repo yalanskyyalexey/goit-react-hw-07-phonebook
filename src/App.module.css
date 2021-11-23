@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+h1 {
+	font-size: 36px;
+	color: #152335;
+	margin-top: 10px;
+}
+
+body {
+	background-image: url('./img/palm-leaf.png');
+	font-family: 'Montserrat', sans-serif;
+}
+
+.appWrapper {
+	text-align: center;
+	background-color: #fff;
+	border-radius: 5px;
+	max-width: 380px;
+	margin: 0 auto;
+	padding: 20px 20px 10px;
+	margin-top: 10px;
+	box-shadow: 1px 1px 3px rgb(0 0 0 / 20%);
+}

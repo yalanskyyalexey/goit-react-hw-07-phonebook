@@ -10,7 +10,7 @@ export default function Filter() {
 		<label className={s.label}>
 			Filter
 			<input
-				className={s.input}
+				className={s.filter__input}
 				type='text'
 				name='name'
 				placeholder='Enter name to search'

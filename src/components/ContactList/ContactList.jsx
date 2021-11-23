@@ -32,10 +32,10 @@ export default function ContactList() {
 		<ul className={s.list}>
 			{visibleContacts &&
 				visibleContacts.map(({ name, number, id }) => (
-					<li className={s.listItem} key={id}>
+					<li className={s.items} key={id}>
 						{`${name}: ${number}`}
 						<button
-							className={s.btn}
+							className={s.delete_btn}
 							type='button'
 							onClick={() => dispatch(removeContact(id))}
 						>

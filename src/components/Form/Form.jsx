@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import s from './Form.module.css';
 import { addContact } from '../../redux/contacts/contacts-operations';
-import { useDispatch } from 'react-redux';
+import { getContactsFromState } from '../../redux/contacts/contacts-selectors';
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function Form() {
 	const dispatch = useDispatch();
 	const [name, setName] = useState('');
 	const [number, setNumber] = useState('');
+
+	const contactsToContactForm = useSelector(getContactsFromState);
 
 	const handleChange = e => {
 		const { name, value } = e.currentTarget;
@@ -24,11 +27,29 @@ export default function Form() {
 		}
 	};
 
+	// const handleSubmit = e => {
+	// 	e.preventDefault();
+	// 	dispatch(addContact({ name, number }));
+	// 	setNumber('');
+	// 	setName('');
+	// };
+
 	const handleSubmit = e => {
 		e.preventDefault();
-		dispatch(addContact({ name, number }));
-		setNumber('');
+		const normalizedName = name.toLowerCase();
+		contactsToContactForm.some(
+			contact =>
+				contact.name.toLowerCase() === normalizedName ||
+				contact.number === number
+		)
+			? alert(`${name} is already in contacts.`)
+			: dispatch(addContact({ name, number }));
+		resetLocalState();
+	};
+
+	const resetLocalState = () => {
 		setName('');
+		setNumber('');
 	};
 
 	return (
@@ -38,7 +59,7 @@ export default function Form() {
 				<input
 					type='text'
 					name='name'
-					placeholder='Homer Simpson'
+					placeholder='Enter name'
 					pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
 					title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
 					required
@@ -61,7 +82,7 @@ export default function Form() {
 					className={s.input}
 				/>
 			</label>
-			<button className={s.btn} type='submit'>
+			<button className={s.form__btn} type='submit'>
 				Add contact
 			</button>
 		</form>
